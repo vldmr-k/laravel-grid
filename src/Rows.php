@@ -41,7 +41,7 @@ class Rows implements \IteratorAggregate, \Countable, \ArrayAccess
     /**
      * @see Countable::count()
      */
-    public function count()
+    public function count(): int
     {
         return count($this->rows);
     }
@@ -60,7 +60,7 @@ class Rows implements \IteratorAggregate, \Countable, \ArrayAccess
      * @param int $offset
      * @return bool
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->rows[$offset]);
     }
@@ -78,7 +78,7 @@ class Rows implements \IteratorAggregate, \Countable, \ArrayAccess
      * @param int $offset
      * @param Row $value
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         throw new \InvalidArgumentException('offsetSet() currently not implemented.');
     }
@@ -86,7 +86,7 @@ class Rows implements \IteratorAggregate, \Countable, \ArrayAccess
     /**
      * @param int $offset
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         throw new \InvalidArgumentException('offsetUnset() currently not implemented.');
     }

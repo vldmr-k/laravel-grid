@@ -20,7 +20,7 @@ class Rows implements \IteratorAggregate, \Countable, \ArrayAccess
     /**
      * @see IteratorAggregate::getIterator()
      */
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         return new \ArrayIterator($this->rows);
     }
@@ -69,6 +69,7 @@ class Rows implements \IteratorAggregate, \Countable, \ArrayAccess
      * @param int $offset
      * @return Row|mixed|null
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->rows[$offset] ?? null;

@@ -41,6 +41,11 @@ class Column
     protected $filter;
 
     /**
+     * @var Footer
+     */
+    protected $footer = null;
+
+    /**
      * @var string
      */
     protected $placeholder;
@@ -51,6 +56,13 @@ class Column
      * @var bool
      */
     protected $autoescape = true;
+    
+    /**
+     * Show/Show column in grid.
+     * 
+     * @var bool
+     */
+    protected $visible = true;
 
     /**
      * @param array $options
@@ -154,7 +166,6 @@ class Column
     public function setRender(\Closure $closure)
     {
         $this->addDecorator((new Html())->render($closure));
-
         return $this;
     }
 
@@ -227,6 +238,29 @@ class Column
         return $this->filter !== null;
     }
 
+    public function hasFooter(): bool {
+        return $this->footer !== null;
+    }
+
+    /**
+     * @param Footer $footer
+     * @return $this
+     */
+    public function setFooter(Footer $footer)
+    {
+        $footer->setColumn($this);
+        $this->footer = $footer;
+
+        return $this;
+    }
+    /**
+     * @return Footer
+     */
+    public function getFooter()
+    {
+        return $this->footer;
+    }
+
     /**
      * @return boolean
      */
@@ -244,6 +278,26 @@ class Column
         $this->autoescape = $flag;
 
         return $this;
+    }
+
+
+    /**
+     * @param bool $value
+     * @return $this
+     */
+    public function setVisible(bool $value)
+    {
+        $this->visible = $value;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isVisible(): bool
+    {
+        return $this->visible;
     }
 
     /**

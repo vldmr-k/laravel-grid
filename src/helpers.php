@@ -67,7 +67,9 @@ if (!function_exists('grid_row')) {
     {
         $cells = '';
         foreach ($row as $cell) {
-            $cells .= grid_cell($cell);
+            if ($cell->getColumn()->isVisible() === true) {
+                $cells .= grid_cell($cell);
+            }
         }
 
         return $row->getGrid()->getGridHelper()->tag('tr', $cells, (array) $row->attributes()->all());
@@ -101,5 +103,24 @@ if (!function_exists('grid_empty')) {
             (string) $grid->getEmptyMessage(),
             ['colspan' => count($grid->getColumns()), 'style' => 'text-align: center']
         );
+    }
+}
+
+if (!function_exists('grid_footer')) {
+    /**
+     * @param Grid\Column $column
+     * @return string
+     */
+    function grid_footer(Grid\Column $column)
+    {
+        $content = "";
+        $attributes = [];
+
+        if($column->hasFooter()) {
+            $content = $column->getFooter()->render();
+            $attributes = $column->getFooter()->attributes()->all();
+        }
+
+        return $column->getGrid()->getGridHelper()->tag('td', (string) $content);
     }
 }

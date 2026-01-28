@@ -25,11 +25,24 @@ class UsersController extends Controller
             ->createBuilder()
             ->setDefaultOrder(new Order('id', 'desc'))
             ->addColumn('id', [
-                'sortable' => true
+                'sortable' => true,
             ])
             ->addColumn('name')
             ->addColumn('email')
-            ->addColumn('created_at')
+            ->addColumn('total_value', [
+                'visible' => isAdmin(),
+                'decorators' => [
+                    new Boduch\Grid\Decorators\Money(currency: 'USD', locale: app()->getLocale()),
+                ],
+                'footer' => (new Footer())->setRender(function ($column, $rows, $cells) use($moneyDecorator) {
+                    return collect($cells)->map(fn($cell) => $cell->getData()->total_value)->sum();
+                }),
+            ])
+            ->addColumn('created_at', [
+                'decorators' => [
+                    new Boduch\Grid\Decorators\DateTime(format: 'd M'),
+                ],
+            ])
             ->setSource(new EloquentSource(new \App\Models\User()));
             
         return view('users')->with('grid', $grid);

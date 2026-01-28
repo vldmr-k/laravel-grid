@@ -304,7 +304,8 @@ class Grid
             'rows'          => $rows,
             'pagination'    => $pagination,
             'grid'          => $this,
-            'is_filterable' => $this->isFilterable()
+            'is_filterable' => $this->isFilterable(),
+            'has_footer'    => $this->hasFooter(),
         ], $this->viewData);
     }
 
@@ -325,6 +326,25 @@ class Grid
         }
 
         return $hasFilters;
+    }
+
+    /**
+     * Is table filterable?
+     *
+     * @return bool
+     */
+    public function hasFooter()
+    {
+        $hasFooter = false;
+
+        foreach ($this->columns as $column) {
+            if ($column->hasFooter()) {
+                $hasFooter = true;
+                break;
+            }
+        }
+
+        return $hasFooter;
     }
 
     /**
@@ -371,6 +391,7 @@ class Grid
             $row->addCell((new Action($actions, $mixed))->setRowActions($this->rowActions));
             $this->rows->addRow($row);
         }
+
 
         $this->columns[] = $actions;
 

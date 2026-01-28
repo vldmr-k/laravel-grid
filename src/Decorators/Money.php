@@ -15,12 +15,20 @@ class Money
     }
 
     /**
+     * @param float $value
+     * @return string
+     */
+    public function format(float $value) {
+        return $this->formatter->formatCurrency($value, $this->currency);
+    }
+
+    /**
      * @param Cell $cell
      */
     public function decorate(Cell $cell)
     {
         $cell->setValue(
-            $this->formatter->formatCurrency((float) $cell->getValue(), $this->currency)
+            $this->format((float) $cell->getValue())
         );
     }
 }

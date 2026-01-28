@@ -57,6 +57,14 @@ class Select extends Filter
     }
 
     /**
+     * @param string $emptyValue
+     */
+    public function setEmptyValue(string $emptyValue)
+    {
+        $this->emptyValue = $emptyValue;
+    }
+
+    /**
      * @return \Illuminate\Support\HtmlString
      */
     public function render()

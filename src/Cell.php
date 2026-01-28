@@ -74,7 +74,7 @@ class Cell implements CellInterface
      */
     public function getValue()
     {
-        return $this->column->isAutoescape() ? htmlspecialchars($this->value) : $this->value;
+        return $this->column->isAutoescape() ? e($this->value) : $this->value;
     }
 
     /**

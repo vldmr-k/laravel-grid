@@ -92,6 +92,10 @@ class EloquentSource implements SourceInterface
 
         if ($operator == FilterOperator::OPERATOR_LIKE || $operator == FilterOperator::OPERATOR_ILIKE) {
             $value = str_replace('*', '%', $value);
+            //add default LIKE search
+            if (!str_contains($value, '%')) {
+                $value .= '%';
+            }
         }
 
         return $value;

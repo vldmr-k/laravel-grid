@@ -38,7 +38,7 @@ class Grid
     /**
      * @var string
      */
-    protected $emptyMessage = 'Brak danych do wyświetlenia.';
+    protected $emptyMessage = '';
 
     /**
      * @var Rows
